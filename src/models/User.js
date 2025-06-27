@@ -22,6 +22,17 @@ const UserSchema = new Schema({
   lastOnline: {
     type: Date,
   },
+  balance: {
+    minute: {
+      type: Number,
+      default: 0,
+    },
+    amount: {
+      type: Number,
+      default: 0,
+    },
+  },
+  history: [],
 });
 
 module.exports = User = mongoose.model('users', UserSchema);
