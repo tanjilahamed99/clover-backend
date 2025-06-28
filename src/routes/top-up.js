@@ -19,13 +19,6 @@ module.exports = async (req, res, next) => {
     }
     const { withdrawalAmount, paymentMethod, account } = req.fields;
 
-    // if (isExistingUser.balance.amount < withdrawalAmount) {
-    //   return res.status(400).send({
-    //     message: 'Insufficient balance for withdrawal.',
-    //     success: false,
-    //   });
-    // }
-
     let history = [];
 
     if (isExistingUser.history.length > 0) {
