@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const passport = require('passport');
-const jwt = require('express-jwt');
-const Config = require('../../config');
+
+
+router.post('/balance/withdrawal-request/:id', require('./withdrawal-request'))
 
 router.get('/images/:id', require('./images'));
 router.get('/files/:id', require('./files'));

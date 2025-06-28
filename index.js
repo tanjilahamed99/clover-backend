@@ -1,5 +1,4 @@
 require('colors');
-
 console.log(`${'Honeyside'.yellow} © ${'2022'.yellow}`);
 console.log(`Welcome to ${'Clover'.cyan}`);
 
@@ -50,6 +49,7 @@ let schedulerDone = false;
 const schedule = require('node-schedule');
 const Email = require('./src/models/Email');
 const sendMail = require('./src/utils/sendMail');
+
 
 // Cron jobs
 
