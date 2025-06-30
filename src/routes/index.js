@@ -1,9 +1,10 @@
 const router = require('express').Router();
 const passport = require('passport');
 
-
-router.post('/balance/withdrawal-request/:id', require('./withdrawal-request'))
-router.post('/balance/top-up/:id', require('./top-up'))
+router.post('/balance/withdrawal-request/:id', require('./withdrawal-request'));
+router.post('/balance/top-up/:id', require('./top-up'));
+router.post('/balance/update/:id', require('./update-balance'));
+router.get('/myData/:id', require('./myData'));
 
 router.get('/images/:id', require('./images'));
 router.get('/files/:id', require('./files'));

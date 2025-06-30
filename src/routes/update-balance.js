@@ -17,42 +17,15 @@ module.exports = async (req, res, next) => {
         success: false,
       });
     }
-    const { topUpAmount, paymentMethod, account } = req.fields;
-
-    let history = [];
-
-    if (isExistingUser.history.length > 0) {
-      history = [
-        ...isExistingUser.history,
-        {
-          type: 'top-up',
-          amount: topUpAmount,
-          paymentMethod,
-          account,
-          date: new Date(),
-          status: 'Completed',
-        },
-      ];
-    } else {
-      history = [
-        {
-          type: 'top-up',
-          amount: topUpAmount,
-          paymentMethod,
-          account,
-          date: new Date(),
-          status: 'Completed',
-        },
-      ];
-    }
+    const { balance } = req.fields;
+    console.log('Balance:', balance);
 
     const updateUserData = await User.findOneAndUpdate(
       { _id: id },
       {
         $set: {
-          history,
           balance: {
-            amount: isExistingUser.balance.amount + parseFloat(topUpAmount),
+            amount: parseFloat(balance),
           },
         },
       },
@@ -65,13 +38,8 @@ module.exports = async (req, res, next) => {
       });
     }
     res.send({
-      message: 'Top-up successfully.',
+      message: 'Balance updated.',
       success: true,
-      data: {
-        topUpAmount,
-        paymentMethod,
-        account,
-      },
     });
   } catch (error) {
     console.log(error);
