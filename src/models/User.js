@@ -34,6 +34,10 @@ const UserSchema = new Schema({
     },
   },
   history: [],
+  price: {
+    type: Number,
+    default: 0,
+  },
 });
 
 module.exports = User = mongoose.model('users', UserSchema);

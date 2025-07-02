@@ -22,10 +22,12 @@ module.exports = (req, res, next) => {
       level: user.level,
       firstName: user.firstName,
       lastName: user.lastName,
+      type: user.type,
       picture: user.picture,
       username: user.username,
       balance: user.balance,
       history: user.history,
+      price: user.price,
     };
     jwt.sign(payload, store.config.secret, { expiresIn: 60 * 60 * 24 * 60 }, (err, token) => {
       if (err) return res.status(500).json({ token: 'Error signing token.' });

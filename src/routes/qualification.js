@@ -17,18 +17,36 @@ module.exports = async (req, res, next) => {
         success: false,
       });
     }
-    res.send({
-      message: 'My Data',
-      success: true,
-      data: {
-        id: isExistingUser._id,
-        email: isExistingUser.email,
-        name: isExistingUser.name,
-        balance: isExistingUser.balance,
-        history: isExistingUser.history,
-        type: isExistingUser.type,
-        price: isExistingUser.price,
+
+    if (isExistingUser.type !== 'Consultant') {
+      return res.status(401).send({
+        success: false,
+        message: 'Invalid data',
+      });
+    }
+
+    const { price } = req.fields;
+
+    console.log(price);
+
+    const updateUserData = await User.findOneAndUpdate(
+      { _id: id },
+      {
+        $set: {
+          price,
+        },
       },
+      { new: true },
+    );
+    if (!updateUserData) {
+      return res.status(500).send({
+        message: 'Failed to update user data.',
+        success: false,
+      });
+    }
+    res.send({
+      message: 'Price Updated.',
+      success: true,
     });
   } catch (error) {
     console.log(error);
