@@ -5,7 +5,7 @@ const isEmpty = require('../utils/isEmpty');
 const xss = require('xss');
 
 module.exports = async (req, res, next) => {
-  let { username, email, firstName, password, repeatPassword, phone, lastName } = req.fields;
+  let { username, email, firstName, password, repeatPassword, phone, lastName,type } = req.fields;
 
   let errors = {};
   isEmpty(username) && (errors.username = 'Username required.');
@@ -13,6 +13,7 @@ module.exports = async (req, res, next) => {
   isEmpty(firstName) && (errors.firstName = 'First name required.');
   isEmpty(password) && (errors.password = 'Password required.');
   isEmpty(lastName) && (errors.lastName = 'Last name required.');
+  isEmpty(type) && (errors.type = 'User type required.');
   if (Object.keys(errors).length > 0) return res.status(400).json(errors);
 
   if (password !== repeatPassword) {
@@ -37,6 +38,7 @@ module.exports = async (req, res, next) => {
     .then((hash) =>
       new User({
         username: xss(username),
+        type: xss(type),
         email: xss(email),
         firstName: xss(firstName),
         password: hash,
