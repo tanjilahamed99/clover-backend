@@ -27,8 +27,6 @@ module.exports = async (req, res, next) => {
 
     const { price } = req.fields;
 
-    console.log(price);
-
     const updateUserData = await User.findOneAndUpdate(
       { _id: id },
       {

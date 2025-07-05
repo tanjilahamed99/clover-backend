@@ -33,7 +33,17 @@ const UserSchema = new Schema({
       default: 0,
     },
   },
-  history: [],
+  history: [
+    {
+      id: { type: Schema.ObjectId, default: () => new mongoose.Types.ObjectId() },
+      historyType: { type: String },
+      amount: { type: Number },
+      paymentMethod: { type: String },
+      status: { type: String, default: 'Pending' },
+      account: { type: String },
+      createdAt: { type: Date, default: Date.now }, // Optional: add timestamp
+    },
+  ],
   price: {
     type: Number,
     default: 0,

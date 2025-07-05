@@ -16,6 +16,7 @@ module.exports = (req, res, next) => {
       picture: 1,
       tagLine: 1,
       balance: 1,
+      history:1
     })
     .match({
       $and: [

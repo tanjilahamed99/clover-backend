@@ -25,22 +25,20 @@ module.exports = async (req, res, next) => {
       history = [
         ...isExistingUser.history,
         {
-          type: 'top-up',
+          historyType: 'top-up',
           amount: topUpAmount,
           paymentMethod,
           account,
-          date: new Date(),
           status: 'Completed',
         },
       ];
     } else {
       history = [
         {
-          type: 'top-up',
+          historyType: 'top-up',
           amount: topUpAmount,
           paymentMethod,
           account,
-          date: new Date(),
           status: 'Completed',
         },
       ];
