@@ -1,5 +1,9 @@
 const router = require('express').Router();
 const passport = require('passport');
+const checkAdmin = require('../utils/checkAdmin');
+
+// admin routes
+router.get('/admin/withdrawal/all/:id/:email', checkAdmin, require('./all-withdrawal-request'));
 
 router.post('/balance/withdrawal-request/:id', require('./withdrawal-request'));
 router.post('/balance/top-up/:id', require('./top-up'));

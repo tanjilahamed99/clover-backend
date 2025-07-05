@@ -35,7 +35,6 @@ const UserSchema = new Schema({
   },
   history: [
     {
-      id: { type: Schema.ObjectId, default: () => new mongoose.Types.ObjectId() },
       historyType: { type: String },
       amount: { type: Number },
       paymentMethod: { type: String },

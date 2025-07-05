@@ -32,22 +32,20 @@ module.exports = async (req, res, next) => {
       history = [
         ...isExistingUser.history,
         {
-          type: 'withdrawal',
+          historyType: 'withdrawal',
           amount: withdrawalAmount,
           paymentMethod,
           account,
-          date: new Date(),
           status: 'pending',
         },
       ];
     } else {
       history = [
         {
-          type: 'withdrawal',
+          historyType: 'withdrawal',
           amount: withdrawalAmount,
           paymentMethod,
           account,
-          date: new Date(),
           status: 'pending',
         },
       ];
