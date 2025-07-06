@@ -4,7 +4,6 @@ module.exports = async (req, res, next) => {
   try {
     const { withdrawalId } = req.params;
     const { status } = req.fields;
-    console.log(status);
 
     const user = await User.findOne({ 'history._id': withdrawalId });
     if (!user) {
@@ -22,10 +21,7 @@ module.exports = async (req, res, next) => {
         success: false,
       });
     }
-
-    console.log(withdrawal);
     const existWithdrawal = user.history.filter((w) => w._id.toString() !== withdrawalId);
-    console.log(existWithdrawal);
 
     if (status === 'Approved') {
       withdrawal.status = 'Approved';
