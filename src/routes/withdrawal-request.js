@@ -56,6 +56,9 @@ module.exports = async (req, res, next) => {
       {
         $set: {
           history,
+          balance: {
+            amount: isExistingUser.balance.amount - withdrawalAmount,
+          },
         },
       },
       { new: true },

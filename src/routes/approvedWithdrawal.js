@@ -40,15 +40,21 @@ module.exports = async (req, res, next) => {
         success: true,
       });
     } else {
+      withdrawal.status = 'Reject';
+      const update = {
+        $set: {
+          history: [withdrawal, ...existWithdrawal],
+          balance: {
+            amount: parseFloat(user.balance.amount) + parseFloat(withdrawal.amount),
+          },
+        },
+      };
+      const rejectWithdrawal = await User.findOneAndUpdate({ _id: user._id }, update);
+      res.send({
+        message: 'withdrawal Rejected',
+        success: true,
+      });
     }
-    //     res.json({
-    //       message: 'Withdrawal found.',
-    //       success: true,
-    //       data: {
-    //         user,
-    //         withdrawal,
-    //       },
-    //     });
   } catch (error) {
     console.log(error);
     res.send({
