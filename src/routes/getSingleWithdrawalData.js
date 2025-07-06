@@ -3,11 +3,7 @@ const User = require('../models/User');
 module.exports = async (req, res, next) => {
   try {
     const { withdrawalId } = req.params;
-    console.log(withdrawalId);
     const user = await User.findOne({ 'history._id': withdrawalId });
-
-    console.log(user);
-
     if (!user) {
       return res.status(404).json({
         message: 'No user found with this withdrawal request.',
