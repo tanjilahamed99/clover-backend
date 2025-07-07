@@ -47,6 +47,7 @@ const UserSchema = new Schema({
     type: Number,
     default: 0,
   },
+  createdAt: { type: Date, default: Date.now }, // Optional: add timestamp
 });
 
 module.exports = User = mongoose.model('users', UserSchema);
