@@ -7,6 +7,13 @@ router.get('/admin/withdrawal/all/:id/:email', checkAdmin, require('./all-withdr
 router.get('/admin/withdrawal/single/:id/:email/:withdrawalId', checkAdmin, require('./getSingleWithdrawalData'));
 router.post('/admin/withdrawal/update/:id/:email/:withdrawalId', checkAdmin, require('./approvedWithdrawal'));
 router.get('/admin/users/all/:id/:email', checkAdmin, require('./all-users'));
+// commission
+router.put('/admin/website/set/:id/:email', checkAdmin, require('./set-commission'));
+router.get('/website/get', require('./get-websitedata'));
+
+// contact
+router.post('/contact/create', require('./create-contact'));
+router.get('/admin/contact/all/:id/:email', checkAdmin, require('./getAllContact'));
 
 router.post('/balance/withdrawal-request/:id', require('./withdrawal-request'));
 router.post('/balance/top-up/:id', require('./top-up'));
