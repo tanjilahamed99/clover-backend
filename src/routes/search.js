@@ -18,6 +18,7 @@ module.exports = (req, res, next) => {
       balance: 1,
       history: 1,
       type: 1,
+      consultantStatus: 1,
     })
     .match({
       $and: [

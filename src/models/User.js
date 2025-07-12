@@ -48,6 +48,10 @@ const UserSchema = new Schema({
     default: 0,
   },
   qualification: String,
+  consultantStatus: {
+    type: String,
+    default: 'Pending',
+  },
   createdAt: { type: Date, default: Date.now }, // Optional: add timestamp
 });
 
