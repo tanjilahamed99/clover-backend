@@ -25,13 +25,14 @@ module.exports = async (req, res, next) => {
       });
     }
 
-    const { price } = req.fields;
+    const { qualification, perMinute } = req.fields;
 
     const updateUserData = await User.findOneAndUpdate(
       { _id: id },
       {
         $set: {
-          price,
+          price: perMinute,
+          qualification,
         },
       },
       { new: true },
@@ -43,7 +44,7 @@ module.exports = async (req, res, next) => {
       });
     }
     res.send({
-      message: 'Price Updated.',
+      message: 'Qualification Updated.',
       success: true,
     });
   } catch (error) {
