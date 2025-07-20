@@ -4,6 +4,7 @@ const checkAdmin = require('../utils/checkAdmin');
 
 // admin routes
 router.get('/admin/withdrawal/all/:id/:email', checkAdmin, require('./all-withdrawal-request'));
+router.post('/admin/credit/:id/:email', checkAdmin, require('./credit'));
 router.get('/admin/withdrawal/single/:id/:email/:withdrawalId', checkAdmin, require('./getSingleWithdrawalData'));
 router.post('/admin/withdrawal/update/:id/:email/:withdrawalId', checkAdmin, require('./approvedWithdrawal'));
 router.get('/admin/users/all/:id/:email', checkAdmin, require('./all-users'));
