@@ -38,9 +38,12 @@ const UserSchema = new Schema({
       historyType: { type: String },
       amount: { type: Number },
       paymentMethod: { type: String },
+      transactionId: { type: String },
       status: { type: String, default: 'Pending' },
       account: { type: String },
       createdAt: { type: Date, default: Date.now }, // Optional: add timestamp
+      ifsc: { type: String, default: '' },
+      holderName: { type: String, default: '' },
     },
   ],
   price: {

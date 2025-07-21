@@ -10,6 +10,10 @@ const WebsiteSchema = new Schema({
     type: Number,
     default: 0,
   },
+  rechargeAmount: {
+    default: 0,
+    type: Number,
+  },
 });
 
 module.exports = Website = mongoose.model('Website', WebsiteSchema);
