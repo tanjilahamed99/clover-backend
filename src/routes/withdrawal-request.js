@@ -17,7 +17,7 @@ module.exports = async (req, res, next) => {
         success: false,
       });
     }
-    const { withdrawalAmount, paymentMethod, account } = req.fields;
+    const { withdrawalAmount, ...rest } = req.fields;
 
     if (isExistingUser.balance.amount < withdrawalAmount) {
       return res.status(400).send({
@@ -34,8 +34,7 @@ module.exports = async (req, res, next) => {
         {
           historyType: 'withdrawal',
           amount: withdrawalAmount,
-          paymentMethod,
-          account,
+          ...rest,
           status: 'pending',
         },
       ];
@@ -44,8 +43,7 @@ module.exports = async (req, res, next) => {
         {
           historyType: 'withdrawal',
           amount: withdrawalAmount,
-          paymentMethod,
-          account,
+          ...rest,
           status: 'pending',
         },
       ];
@@ -74,8 +72,7 @@ module.exports = async (req, res, next) => {
       success: true,
       data: {
         withdrawalAmount,
-        paymentMethod,
-        account,
+        ...rest,
       },
     });
   } catch (error) {
