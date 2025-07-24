@@ -18,6 +18,8 @@ router.post('/contact/create', require('./create-contact'));
 router.get('/admin/contact/all/:id/:email', checkAdmin, require('./getAllContact'));
 
 router.post('/balance/withdrawal-request/:id', require('./withdrawal-request'));
+router.post('/balance/top-up/paytm', require('./paytm'));
+router.post('/balance/top-up/callback', require('./payment-callback'));
 router.post('/balance/top-up/:id', require('./top-up'));
 router.post('/balance/update/:id', require('./update-balance'));
 router.get('/myData/:id', require('./myData'));

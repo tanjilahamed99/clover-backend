@@ -14,7 +14,7 @@ Config = require('./config');
 if (Config.ip) Config.mediasoup.webRtcTransport.listenIps[0].ip = Config.ip;
 
 app.use((req, res, next) => (store.connected ? next() : res.status(500).send('Database not available.')));
-
+// app.use(express.urlencoded({ extended: true }));
 app.use(express.static(`${__dirname}/../frontend/dist`));
 app.use('/login', express.static(`${__dirname}/../frontend/dist`));
 app.use('/login/*', express.static(`${__dirname}/../frontend/dist`));
