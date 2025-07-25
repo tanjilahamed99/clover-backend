@@ -2,7 +2,7 @@ const PaytmChecksum = require('paytmchecksum');
 
 module.exports = async (req, res) => {
   const key = 'n9XGKS44KzhGBK&c'; // Merchant key
-
+  console.log('Received callback data:', req.fields);
   // Use req.body instead of req.fields for Paytm callback
   const receivedData = req.fields;
 

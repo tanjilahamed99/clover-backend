@@ -11,18 +11,6 @@ module.exports = async (req, res) => {
 
   const orderId = `ORDERID_${Date.now()}`;
   const custId = `CUST_${Date.now()}`;
-
-  //   const params = {
-  //     MID: mid,
-  //     //     WEBSITE: 'DEFAULT',
-  //     WEBSITE: 'WEBSTAGING',
-  //     CHANNEL_ID: 'WEB',
-  //     INDUSTRY_TYPE_ID: 'Retail',
-  //     ORDER_ID: orderId,
-  //     CUST_ID: custId,
-  //     TXN_AMOUNT: totalAmount,
-  //     CALLBACK_URL: 'http://localhost:4000/api/balance/top-up/callback', // Replace with production URL
-  //   };
   var params = {};
 
   /* initialize an array */
@@ -33,7 +21,7 @@ module.exports = async (req, res) => {
   params['ORDER_ID'] = orderId;
   params['CUST_ID'] = custId;
   params['TXN_AMOUNT'] = totalAmount;
-  params['CALLBACK_URL'] = 'https://clover-backend-mzzu.onrender.com/api/balance/top-up/callback';
+  params['CALLBACK_URL'] = 'http://localhost:4000/api/balance/top-up/callback';
   params['EMAIL'] = email;
   params['MOBILE_NO'] = '7498608775';
 
