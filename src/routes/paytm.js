@@ -21,7 +21,7 @@ module.exports = async (req, res) => {
   params['ORDER_ID'] = orderId;
   params['CUST_ID'] = custId;
   params['TXN_AMOUNT'] = totalAmount;
-  params['CALLBACK_URL'] = 'http://localhost:4000/api/balance/top-up/callback';
+  params['CALLBACK_URL'] = 'https://clover-backend-mzzu.onrender.com/api/balance/top-up/callback';
   params['EMAIL'] = email;
   params['MOBILE_NO'] = '7498608775';
 
