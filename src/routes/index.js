@@ -20,12 +20,13 @@ router.get('/admin/contact/all/:id/:email', checkAdmin, require('./getAllContact
 router.post('/balance/withdrawal-request/:id', require('./withdrawal-request'));
 router.post('/balance/top-up/paytm', require('./paytm'));
 router.post('/balance/top-up/callback', require('./payment-callback'));
+router.post('/create-payment-intent', require('./create-payment-intent'));
 router.post('/balance/top-up/:id', require('./top-up'));
 router.post('/balance/update/:id', require('./update-balance'));
 router.get('/myData/:id', require('./myData'));
 router.post('/qualification/set-price/:id', require('./qualification'));
 
-router.get('/images/:id', require('./images'));
+router.get('/images/:id', require('./images')); 
 router.get('/files/:id', require('./files'));
 router.get('/images/:id/:size', require('./images'));
 router.post('/login', require('./login'));
