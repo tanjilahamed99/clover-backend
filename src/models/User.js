@@ -40,10 +40,11 @@ const UserSchema = new Schema({
       paymentMethod: { type: String },
       transactionId: { type: String },
       status: { type: String, default: 'Pending' },
-      account: { type: String },
+      account: { type: String, default: '' },
       createdAt: { type: Date, default: Date.now }, // Optional: add timestamp
       ifsc: { type: String, default: '' },
       holderName: { type: String, default: '' },
+      razorpay: { type: Object, default: {} },
     },
   ],
   price: {

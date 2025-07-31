@@ -1,10 +1,18 @@
-const Razorpay = require('razorpay');
+const Razorpays = require('razorpay');
+const Razorpay = require('../models/Razorpay');
 
 module.exports = async (req, res, next) => {
   try {
-    const razorpay = new Razorpay({
-      key_id: process.env.RAZORPAY_KEY_ID,
-      key_secret: process.env.RAZORPAY_SECRET,
+    const keys = await Razorpay.findOne();
+    if (!keys) {
+      return res.send({
+        success: false,
+        message: 'Something is wrong',
+      });
+    }
+    const razorpay = new Razorpays({
+      key_id: keys.key,
+      key_secret: keys.secret,
     });
 
     const options = req.fields;
