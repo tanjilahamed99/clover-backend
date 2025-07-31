@@ -1,13 +1,22 @@
+const Razorpay = require('razorpay');
+
 module.exports = async (req, res, next) => {
-  const { amount, currency } = req.fields;
   try {
-    // const paymentIntent = await stripe.paymentIntents.create({
-    //   amount: Math.round(amount * 100),
-    //   currency: 'inr',
-    //   automatic_payment_methods: { enabled: true },
-    // });
-    res.send();
+    const razorpay = new Razorpay({
+      key_id: process.env.RAZORPAY_KEY_ID,
+      key_secret: process.env.RAZORPAY_SECRET,
+    });
+
+    const options = req.fields;
+    const order = await razorpay.orders.create(options);
+
+    if (!order) {
+      return res.status(500).send('Error');
+    }
+
+    res.json(order);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.log(err);
+    res.status(500).send('Error');
   }
 };
