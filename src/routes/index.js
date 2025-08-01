@@ -4,11 +4,18 @@ const checkAdmin = require('../utils/checkAdmin');
 
 // admin routes
 router.get('/razorpay/get/:id/:email', require('./getRazorpay'));
+
+// payment related
+// razorpay related
 router.put('/admin/razorpay/set/:id/:email', checkAdmin, require('./setRazorpay'));
-router.get('/admin/withdrawal/all/:id/:email', checkAdmin, require('./all-withdrawal-request'));
 router.post('/admin/credit/:id/:email', checkAdmin, require('./credit'));
+
+// withdrawal route
+router.get('/admin/withdrawal/all/:id/:email', checkAdmin, require('./all-withdrawal-request'));
 router.get('/admin/withdrawal/single/:id/:email/:withdrawalId', checkAdmin, require('./getSingleWithdrawalData'));
 router.post('/admin/withdrawal/update/:id/:email/:withdrawalId', checkAdmin, require('./approvedWithdrawal'));
+router.post('/admin/withdrawal/send/:id/:email/:withdrawalId', checkAdmin, require('./sendPayment'));
+
 router.get('/admin/users/all/:id/:email', checkAdmin, require('./all-users'));
 router.post('/consultant/update/:id/:email', checkAdmin, require('./consultant-status-update'));
 
@@ -20,7 +27,10 @@ router.get('/website/get', require('./get-websitedata'));
 router.post('/contact/create', require('./create-contact'));
 router.get('/admin/contact/all/:id/:email', checkAdmin, require('./getAllContact'));
 
+// payment related
+// balance and payment related
 router.post('/balance/withdrawal-request/:id', require('./withdrawal-request'));
+// razorpay setup and payment complete
 router.post('/create-payment-intent', require('./create-payment-intent'));
 router.post('/validate-payment', require('./validatePayment'));
 router.post('/balance/top-up/:id', require('./top-up'));

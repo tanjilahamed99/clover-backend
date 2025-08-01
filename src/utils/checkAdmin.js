@@ -6,6 +6,7 @@ const checkAdmin = async (req, res, next) => {
     const isAdmin = await User.findOne({
       _id: id,
       email,
+      level: 'root' || "admin",
     });
 
     if (!isAdmin) {
