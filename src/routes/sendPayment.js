@@ -21,7 +21,6 @@ module.exports = async (req, res) => {
 
     // Find the matching withdrawal entry
     const withdrawal = user.history.find((item) => item._id.toString() === withdrawalId);
-    console.log(withdrawal);
     if (!withdrawal) {
       return res.status(404).json({
         message: 'Withdrawal entry not found.',
