@@ -20,7 +20,7 @@ const mongooseConnect = () => {
   mongoose.set('useCreateIndex', true);
   let connecting = setTimeout(() => console.log('Connecting to DB...'.yellow), 1000);
   mongoose
-    .connect('mongodb+srv://clover:vUZHXGJywOyVhOze@cluster0.8mn4lkn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true })
+    .connect(Config.db, { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true })
     .then(() => {
       clearTimeout(connecting);
       Room.deleteMany({}).then(done);
