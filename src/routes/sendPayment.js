@@ -39,7 +39,7 @@ module.exports = async (req, res) => {
       fund_account: {
         account_type: 'vpa',
         vpa: {
-          address: withdrawal.upiId || 'gauravkumar@exampleupi', // optionally use a saved UPI
+          address: withdrawal.account,
         },
         contact: {
           name: `${user.firstName} ${user.lastName}`,
