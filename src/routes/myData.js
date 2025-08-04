@@ -29,6 +29,7 @@ module.exports = async (req, res, next) => {
         type: isExistingUser.type,
         price: isExistingUser.price,
         consultantStatus: isExistingUser.consultantStatus,
+        level: isExistingUser.level,
       },
     });
   } catch (error) {
