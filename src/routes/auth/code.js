@@ -48,10 +48,32 @@ router.post('*', async (req, res) => {
   entry.save();
 
   await sendBrevoCampaign({
-    subject: `${config.appTitle || config.appName || 'Sawamahe'} - Authentication Code`,
+    subject: `${config.appTitle || config.appName || 'Sawamahe'} - Password Reset Code`,
     senderName: 'Sawamahe.in',
     senderEmail: process.env.BREVO_EMAIL,
-    htmlContent: `<p>Hello ${user.firstName},<br/><br/>Here is your authentication code: ${authCode.code}</p>`,
+    htmlContent: `
+  <div style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;">
+    <div style="max-width: 600px; margin: auto; background: #ffffff; border-radius: 10px; padding: 30px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+      <h2 style="color: #333;">Hi ${user.firstName},</h2>
+      <p style="font-size: 16px; color: #555;">We received a request to reset your password. Please use the authentication code below to proceed:</p>
+      
+      <div style="text-align: center; margin: 30px 0;">
+        <span style="font-size: 28px; font-weight: bold; letter-spacing: 3px; color: #2e7dff; border: 2px dashed #2e7dff; padding: 12px 20px; display: inline-block; border-radius: 8px;">
+          ${authCode.code}
+        </span>
+      </div>
+
+      <p style="font-size: 14px; color: #777;">This code is valid for the next 10 minutes. If you didn’t request this, please ignore this email or contact support.</p>
+
+      <p style="font-size: 14px; color: #999; margin-top: 40px;">Thanks,<br/>The Sawamahe Team</p>
+
+      <hr style="margin-top: 40px; border: none; border-top: 1px solid #eee;" />
+      <p style="font-size: 12px; color: #aaa; text-align: center;">
+        © ${new Date().getFullYear()} Sawamahe.in — All rights reserved.
+      </p>
+    </div>
+  </div>
+  `,
     to: email,
   });
 
