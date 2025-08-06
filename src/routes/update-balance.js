@@ -17,20 +17,44 @@ module.exports = async (req, res, next) => {
         success: false,
       });
     }
-    const { balance } = req.fields;
-    console.log('Balance:', balance);
+    const { balance, history } = req.fields;
+    let updateHistory = [];
 
-    const updateUserData = await User.findOneAndUpdate(
-      { _id: id },
-      {
-        $set: {
-          balance: {
-            amount: parseFloat(balance),
+    if (isExistingUser.history.length > 0) {
+      updateHistory = [
+        ...isExistingUser.history,
+        {
+          ...history,
+          status: 'Completed',
+          author: {
+            name: `${isExistingUser.firstName}${' '}${isExistingUser.lastName}`,
+            email: isExistingUser.email,
+            id: isExistingUser.id,
           },
         },
+      ];
+    } else {
+      updateHistory = [
+        {
+          ...history,
+          status: 'Completed',
+          author: {
+            name: `${isExistingUser.firstName}${' '}${isExistingUser.lastName}`,
+            email: isExistingUser.email,
+            id: isExistingUser.id,
+          },
+        },
+      ];
+    }
+    const update = {
+      $set: {
+        balance: {
+          amount: parseFloat(balance),
+        },
+        history: updateHistory,
       },
-      { new: true },
-    );
+    };
+    const updateUserData = await User.findOneAndUpdate({ _id: id }, update, { new: true });
     if (!updateUserData) {
       return res.status(500).send({
         message: 'Failed to update user data.',

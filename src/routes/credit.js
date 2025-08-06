@@ -3,7 +3,6 @@ const User = require('../models/User');
 module.exports = async (req, res, next) => {
   try {
     const { userId, userEmail, credit } = req.fields;
-    console.log(userId, userEmail, credit);
 
     if (!userId || !userEmail || !credit) {
       return res.send({
@@ -23,9 +22,42 @@ module.exports = async (req, res, next) => {
       });
     }
 
+    let history = [];
+    if (findUser.history.length > 0) {
+      history = [
+        ...findUser.history,
+        {
+          historyType: 'Admin Credit',
+          amount: credit,
+          paymentMethod: 'Credit',
+          status: 'Completed',
+          author: {
+            name: `${findUser.firstName}${' '}${findUser.lastName}`,
+            email: findUser.email,
+            id: findUser.id,
+          },
+        },
+      ];
+    } else {
+      history = [
+        {
+          historyType: 'Admin Credit',
+          amount: credit,
+          paymentMethod: 'Credit',
+          status: 'Completed',
+          author: {
+            name: `${findUser.firstName}${' '}${findUser.lastName}`,
+            email: findUser.email,
+            id: findUser.id,
+          },
+        },
+      ];
+    }
+    
     const update = {
       $set: {
         'balance.amount': findUser.balance.amount + parseInt(credit),
+        history,
       },
     };
 

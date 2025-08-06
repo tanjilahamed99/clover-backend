@@ -15,12 +15,12 @@ router.get('/admin/withdrawal/all/:id/:email', checkAdmin, require('./all-withdr
 router.get('/admin/withdrawal/single/:id/:email/:withdrawalId', checkAdmin, require('./getSingleWithdrawalData'));
 router.post('/admin/withdrawal/update/:id/:email/:withdrawalId', checkAdmin, require('./approvedWithdrawal'));
 router.post('/admin/withdrawal/send/:id/:email/:withdrawalId', checkAdmin, require('./sendPayment'));
-
 router.get('/admin/users/all/:id/:email', checkAdmin, require('./all-users'));
 router.post('/consultant/update/:id/:email', checkAdmin, require('./consultant-status-update'));
-
 // commission
 router.put('/admin/website/set/:id/:email', checkAdmin, require('./set-commission'));
+
+
 router.get('/website/get', require('./get-websitedata'));
 
 // contact
