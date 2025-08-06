@@ -5,6 +5,7 @@ const User = require('../../models/User');
 const config = require('../../../config');
 const moment = require('moment');
 const argon2 = require('argon2');
+const sendBrevoCampaign = require('../../utils/brevoEmail');
 
 router.post('*', async (req, res) => {
   let { code, email, password } = req.fields;
@@ -59,6 +60,41 @@ router.post('*', async (req, res) => {
     html: `<p>Hello ${user.firstName},<br/><br/>Your password has been changed!<br/><br/>Timestamp: ${moment().format(
       'HH:mm - D MMMM YYYY',
     )}</p>`,
+  });
+
+  await sendBrevoCampaign({
+    subject: `${config.appTitle || config.appName || 'Sawamahe'} - Password Changed Successfully`,
+    senderName: 'Sawamahe.in',
+    senderEmail: process.env.BREVO_EMAIL,
+    htmlContent: `
+  <div style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;">
+    <div style="max-width: 600px; margin: auto; background-color: #ffffff; border-radius: 10px; padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+      <h2 style="color: #333;">Hello ${user.firstName},</h2>
+      <p style="font-size: 16px; color: #555;">
+        This is a confirmation that your account password was successfully changed.
+      </p>
+
+      <p style="font-size: 16px; color: #555;">
+        If you made this change, no further action is needed.
+      </p>
+
+      <p style="font-size: 16px; color: #555;">
+        Thank you for taking steps to keep your account secure.
+      </p>
+
+      <p style="font-size: 14px; color: #999; margin-top: 40px;">
+        Warm regards,<br/>
+        <strong>The Sawamahe Team</strong>
+      </p>
+
+      <hr style="margin-top: 40px; border: none; border-top: 1px solid #eee;" />
+      <p style="font-size: 12px; color: #aaa; text-align: center;">
+        © ${new Date().getFullYear()} Sawamahe.in — All rights reserved.
+      </p>
+    </div>
+  </div>
+  `,
+    to: email,
   });
 
   entry.save();
