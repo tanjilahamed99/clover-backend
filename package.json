@@ -47,7 +47,8 @@
     "striptags": "3.2.0",
     "uuid": "9.0.1",
     "validator": "13.11.0",
-    "xss": "1.0.14"
+    "xss": "1.0.14",
+    "sib-api-v3-sdk": "^8.5.0"
   },
   "devDependencies": {
     "prettier": "3.2.5"

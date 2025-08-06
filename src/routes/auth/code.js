@@ -6,6 +6,7 @@ const config = require('../../../config');
 const randomstring = require('randomstring');
 const moment = require('moment');
 const isEmpty = require('../../utils/isEmpty');
+const sendBrevoCampaign = require('../../utils/brevoEmail');
 
 router.post('*', async (req, res) => {
   let { email } = req.fields;
@@ -40,11 +41,19 @@ router.post('*', async (req, res) => {
   const entry = Email({
     from: config.nodemailer.from,
     to: user.email,
-    subject: `${config.appTitle || config.appName || 'Clover'} - Authentication Code`,
+    subject: `${config.appTitle || config.appName || 'Sawamahe'} - Authentication Code`,
     html: `<p>Hello ${user.firstName},<br/><br/>Here is your authentication code: ${authCode.code}</p>`,
   });
 
   entry.save();
+
+  await sendBrevoCampaign({
+    subject: `${config.appTitle || config.appName || 'Sawamahe'} - Authentication Code`,
+    senderName: 'Sawamahe.in',
+    senderEmail: process.env.BREVO_EMAIL,
+    htmlContent: `<p>Hello ${user.firstName},<br/><br/>Here is your authentication code: ${authCode.code}</p>`,
+    to: email,
+  });
 
   res.status(200).json({ status: 'status', message: 'email queued' });
 });
