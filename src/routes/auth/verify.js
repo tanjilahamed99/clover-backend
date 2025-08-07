@@ -71,7 +71,7 @@ router.post('*', async (req, res) => {
   authCode.save();
 
   const entry = Email({
-    from: config.nodemailer.from,
+    from: config.nodemailer.from,   
     to: email,
     subject: `${config.appTitle || config.appName || 'Clover'} - Verification Code`,
     html: `<p>Hello ${firstName},<br/><br/>Here is your verification code: ${authCode.code}</p>`,
