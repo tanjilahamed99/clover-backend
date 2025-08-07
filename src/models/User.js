@@ -45,6 +45,7 @@ const UserSchema = new Schema({
       ifsc: { type: String, default: '' },
       holderName: { type: String, default: '' },
       razorpay: { type: Object, default: {} },
+      paygic: { type: Object, default: {} },
       author: {
         name: String,
         email: String,

@@ -16,7 +16,7 @@ module.exports = async (req, res, next) => {
         success: false,
       });
     }
-    const { amount, paymentMethod, razorpay, author } = req.fields;
+    const { amount, paymentMethod, razorpay, author , paygic } = req.fields;
     let history = [];
     if (isExistingUser.history.length > 0) {
       history = [
@@ -27,7 +27,8 @@ module.exports = async (req, res, next) => {
           paymentMethod,
           status: 'Completed',
           razorpay,
-          author
+          author,
+          paygic
         },
       ];
     } else {
@@ -38,7 +39,8 @@ module.exports = async (req, res, next) => {
           paymentMethod,
           status: 'Completed',
           razorpay,
-          author
+          author,
+          paygic
         },
       ];
     }
