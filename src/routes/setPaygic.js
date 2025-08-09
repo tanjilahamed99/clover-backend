@@ -1,12 +1,13 @@
-const Razorpay = require('../models/Razorpay');
+const Paygic = require("../models/Paygic");
+
 
 module.exports = async (req, res, next) => {
   try {
     const updatedData = req.fields;
-    let settings = await Razorpay.findOne();
+    let settings = await Paygic.findOne();
     if (!settings) {
       // If no document exists yet, create it
-      settings = new Razorpay(updatedData);
+      settings = new Paygic(updatedData);
     } else {
       // Update existing document
       Object.assign(settings, updatedData);

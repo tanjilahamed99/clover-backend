@@ -1,12 +1,19 @@
 const axios = require('axios');
 const User = require('../models/User');
+const Paygic = require('../models/Paygic');
 
 module.exports = async (req, res, next) => {
   try {
     const { merchantReferenceId, userId } = req.fields;
 
-    const mid = 'TARASONS';
-    const password = '6Qij^91KoLxt';
+    const keys = await Paygic.findOne();
+
+    if (!keys) {
+      return res.send({
+        success: false,
+        message: 'Something is wrong',
+      });
+    }
 
     // Basic validation
     if (!merchantReferenceId || !userId) {
@@ -40,8 +47,8 @@ module.exports = async (req, res, next) => {
 
     // Create merchant token from Paygic
     const { data: tokenData } = await axios.post('https://server.paygic.in/api/v3/createMerchantToken', {
-      mid,
-      password,
+      mid: keys.mid,
+      password: keys.mid,
       expiry: false,
     });
 
@@ -49,7 +56,7 @@ module.exports = async (req, res, next) => {
     const { data: paymentStatus } = await axios.post(
       'https://server.paygic.in/api/v2/checkPaymentStatus',
       {
-        mid,
+        mid: keys.mid,
         merchantReferenceId,
       },
       {

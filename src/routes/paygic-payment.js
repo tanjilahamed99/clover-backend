@@ -2,13 +2,20 @@ const axios = require('axios');
 const Razorpay = require('../models/Razorpay');
 const User = require('../models/User');
 const WebsiteInfo = require('../models/WebsiteInfo');
+const Paygic = require('../models/Paygic');
 
 module.exports = async (req, res) => {
   try {
     const { amount, userId } = req.fields;
 
-    const mid = 'TARASONS';
-    const password = '6Qij^91KoLxt';
+    const keys = await Paygic.findOne();
+
+    if (!keys) {
+      return res.send({
+        success: false,
+        message: 'Something is wrong',
+      });
+    }
 
     if (!amount || !userId) {
       return res.send({
@@ -30,15 +37,15 @@ module.exports = async (req, res) => {
     const receiptId = `REC-${Date.now()}-${Math.floor(Math.random() * 1000000)}`;
 
     const { data } = await axios.post('https://server.paygic.in/api/v3/createMerchantToken', {
-      mid,
-      password,
+      mid: keys.mid,
+      password: keys.password,
       expiry: false,
     });
 
     const { data: response } = await axios.post(
       'https://server.paygic.in/api/v2/createPaymentPage',
       {
-        mid, // Merchant ID
+        mid: keys.mid, // Merchant ID
         merchantReferenceId: receiptId, // Unique reference ID
         amount: String(amount), // Amount
         customer_mobile: '4355435545',

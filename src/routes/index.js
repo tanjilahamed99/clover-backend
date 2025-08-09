@@ -7,6 +7,8 @@ router.get('/razorpay/get/:id/:email', require('./getRazorpay'));
 
 // admin routes
 // payment related
+// set paygic secret info
+router.put('/admin/paygic/set/:id/:email', checkAdmin, require('./setPaygic'));
 // razorpay related
 router.put('/admin/razorpay/set/:id/:email', checkAdmin, require('./setRazorpay'));
 router.post('/admin/credit/:id/:email', checkAdmin, require('./credit'));
