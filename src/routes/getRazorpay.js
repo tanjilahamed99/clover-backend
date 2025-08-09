@@ -5,7 +5,6 @@ module.exports = async (req, res, next) => {
   try {
     const { id, email } = req.params;
     const findUser = await User.findOne({ _id: id, email });
-    console.log(findUser.level);
     if (!findUser) {
       return res.send({
         message: 'Invalid Data',

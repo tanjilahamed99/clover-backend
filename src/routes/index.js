@@ -2,39 +2,43 @@ const router = require('express').Router();
 const passport = require('passport');
 const checkAdmin = require('../utils/checkAdmin');
 
-// admin routes
+// admin + user route
 router.get('/razorpay/get/:id/:email', require('./getRazorpay'));
 
+// admin routes
 // payment related
 // razorpay related
 router.put('/admin/razorpay/set/:id/:email', checkAdmin, require('./setRazorpay'));
 router.post('/admin/credit/:id/:email', checkAdmin, require('./credit'));
-
 // withdrawal route
 router.get('/admin/withdrawal/all/:id/:email', checkAdmin, require('./all-withdrawal-request'));
 router.get('/admin/withdrawal/single/:id/:email/:withdrawalId', checkAdmin, require('./getSingleWithdrawalData'));
 router.post('/admin/withdrawal/update/:id/:email/:withdrawalId', checkAdmin, require('./approvedWithdrawal'));
 router.post('/admin/withdrawal/send/:id/:email/:withdrawalId', checkAdmin, require('./sendPayment'));
+// razorpay setup and payment complete
+router.post('/create-payment-intent', require('./create-payment-intent'));
+router.post('/validate-payment', require('./validatePayment'));
+// paygic payment
+router.post('/paygic/validate-payment', require('./paygicValildatePayment'));
+router.post('/balance/top-up/paygic', require('./paygic-payment'))
+router.post('/balance/top-up/:id', require('./top-up'));
+router.post('/balance/update/:id', require('./update-balance'));
+// balance and payment related
+router.post('/balance/withdrawal-request/:id', require('./withdrawal-request'));
+
+// user related
 router.get('/admin/users/all/:id/:email', checkAdmin, require('./all-users'));
+// update consultant status
 router.post('/consultant/update/:id/:email', checkAdmin, require('./consultant-status-update'));
 // commission
 router.put('/admin/website/set/:id/:email', checkAdmin, require('./set-commission'));
 
-
+// all website free data
 router.get('/website/get', require('./get-websitedata'));
 
 // contact
 router.post('/contact/create', require('./create-contact'));
 router.get('/admin/contact/all/:id/:email', checkAdmin, require('./getAllContact'));
-
-// payment related
-// balance and payment related
-router.post('/balance/withdrawal-request/:id', require('./withdrawal-request'));
-// razorpay setup and payment complete
-router.post('/create-payment-intent', require('./create-payment-intent'));
-router.post('/validate-payment', require('./validatePayment'));
-router.post('/balance/top-up/:id', require('./top-up'));
-router.post('/balance/update/:id', require('./update-balance'));
 router.get('/myData/:id', require('./myData'));
 router.post('/qualification/set-price/:id', require('./qualification'));
 
