@@ -1,7 +1,5 @@
 const axios = require('axios');
-const Razorpay = require('../models/Razorpay');
 const User = require('../models/User');
-const WebsiteInfo = require('../models/WebsiteInfo');
 const Paygic = require('../models/Paygic');
 
 module.exports = async (req, res) => {
@@ -9,6 +7,7 @@ module.exports = async (req, res) => {
     const { amount, userId } = req.fields;
 
     const keys = await Paygic.findOne();
+    const frontendUrl = process.env.FRONTEND_URL;
 
     if (!keys) {
       return res.send({
@@ -51,8 +50,8 @@ module.exports = async (req, res) => {
         customer_mobile: '4355435545',
         customer_name: user.firstName,
         customer_email: user.email,
-        redirect_URL: `https://clover-nine-pi.vercel.app/monetization/success?refId=${receiptId}`,
-        failed_URL: 'https://clover-nine-pi.vercel.app/monetization/failed',
+        redirect_URL: `${frontendUrl}/monetization/success?refId=${receiptId}`,
+        failed_URL: `${frontendUrl}/monetization/failed`,
       },
       {
         headers: {
