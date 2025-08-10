@@ -48,7 +48,7 @@ module.exports = async (req, res, next) => {
     // Create merchant token from Paygic
     const { data: tokenData } = await axios.post('https://server.paygic.in/api/v3/createMerchantToken', {
       mid: keys.mid,
-      password: keys.mid,
+      password: keys.password,
       expiry: false,
     });
 
@@ -65,6 +65,8 @@ module.exports = async (req, res, next) => {
         },
       },
     );
+
+    console.log(paymentStatus);
 
     let updateHistory = [];
 
