@@ -17,10 +17,16 @@ app.use((req, res, next) => (store.connected ? next() : res.status(500).send('Da
 // app.use(express.urlencoded({ extended: true }));
 app.use(express.static(`${__dirname}/../frontend/dist`));
 app.use('/login', express.static(`${__dirname}/../frontend/dist`));
+app.use('/forgot-password', express.static(`${__dirname}/../frontend/dist`));
+app.use('/monetization', express.static(`${__dirname}/../frontend/dist`));
 app.use('/login/*', express.static(`${__dirname}/../frontend/dist`));
-app.use('/admin', express.static(`${__dirname}/../frontend/dist`));
+app.use('/admin/*', express.static(`${__dirname}/../frontend/dist`));
 app.use('/room/*', express.static(`${__dirname}/../frontend/dist`));
 app.use('/meeting/*', express.static(`${__dirname}/../frontend/dist`));
+app.use('/about', express.static(`${__dirname}/../frontend/dist`));
+app.use('/privacy', express.static(`${__dirname}/../frontend/dist`));
+app.use('/terms', express.static(`${__dirname}/../frontend/dist`));
+app.use('/contact', express.static(`${__dirname}/../frontend/dist`));
 
 const server = http.createServer(app);
 store.app = app;
