@@ -30,6 +30,7 @@ module.exports = async (req, res, next) => {
         price: isExistingUser.price,
         consultantStatus: isExistingUser.consultantStatus,
         level: isExistingUser.level,
+        qualification: isExistingUser.qualification
       },
     });
   } catch (error) {
